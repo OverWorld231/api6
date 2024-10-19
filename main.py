@@ -18,12 +18,12 @@ def get_info_comics(number):
   comentarion_author = response.json()["alt"]
   return link_img, comentarion_author
 
-def upload_telegram(tg_token,chat_id,caption):
+def upload_telegram_photo(tg_token,chat_id,caption):
   bot = telegram.Bot(token=tg_token)
   with open("comics.png","rb") as f:
       bot.send_photo(chat_id=chat_id, photo=f,caption=caption)
 
-def random_comics():
+def get_random_comics():
   url = "https://xkcd.com/info.0.json" 
   response = requests.get(url)
   response.raise_for_status()
@@ -37,10 +37,10 @@ def main():
     tg_token = os.environ['TG_TOKEN']
     chat_id = os.environ['TG_CHAT_ID']
     filename = 'comics.png'
-    random_number = random_comics()
+    random_number = get_random_comics()
     link_img,comentarion_author = get_info_comics(random_number)
     download_image(link_img,filename)
-    upload_telegram(tg_token,chat_id,comentarion_author)
+    upload_telegram_photo(tg_token,chat_id,comentarion_author)
   finally:
     os.remove(filename)
 
