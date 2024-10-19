@@ -14,8 +14,9 @@ def get_info_comics(number):
   url = f"https://xkcd.com/{number}/info.0.json"
   response = requests.get(url)
   response.raise_for_status()
-  link_img = response.json()["img"]
-  comentarion_author = response.json()["alt"]
+  comic = response.json()
+  link_img = comic["img"]
+  comentarion_author = comic["alt"]
   return link_img, comentarion_author
 
 def upload_telegram_photo(tg_token,chat_id,caption):
@@ -46,6 +47,7 @@ def main():
 
 if __name__ == "__main__":
    main()
+   
 
   
 
