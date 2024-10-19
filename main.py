@@ -33,14 +33,16 @@ def random_comics():
 
 def main():
   load_dotenv()
-  tg_token = os.environ['TG_TOKEN']
-  chat_id = os.environ['TG_CHAT_ID']
-  filename = 'comics.png'
-  random_number = random_comics()
-  link_img,comentarion_author = get_info_comics(random_number)
-  download_image(link_img,filename)
-  upload_telegram(tg_token,chat_id,comentarion_author)
-  os.remove(filename)
+  try:
+    tg_token = os.environ['TG_TOKEN']
+    chat_id = os.environ['TG_CHAT_ID']
+    filename = 'comics.png'
+    random_number = random_comics()
+    link_img,comentarion_author = get_info_comics(random_number)
+    download_image(link_img,filename)
+    upload_telegram(tg_token,chat_id,comentarion_author)
+  finally:
+    os.remove(filename)
 
 if __name__ == "__main__":
    main()
